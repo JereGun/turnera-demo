@@ -1,0 +1,85 @@
+@startuml
+' ===========================================================
+' SISTEMA DE TURNOS PROFESIONAL - MODELO DE DOMINIO UML
+' ===========================================================
+
+class Organizacion {
+    Long id
+    String nombre
+    String tipo
+    String email
+    String telefono
+    String direccion
+}
+
+class Centro {
+    Long id
+    String nombre
+    String direccion
+    String telefono
+    String email
+}
+
+class Agenda {
+    Long id
+    String nombre
+    LocalTime horaInicio
+    LocalTime horaFin
+    String diasHabiles
+}
+
+enum EstadoTurno {
+    PENDIENTE
+    CONFIRMADO
+    CANCELADO
+    REALIZADO
+}
+
+class Turno {
+    Long id
+    LocalDate fecha
+    LocalTime hora
+    EstadoTurno estado
+    String observaciones
+}
+
+class Usuario {
+    Long id
+    String nombre
+    String email
+    String telefono
+    String password
+    Rol rol
+}
+
+enum Rol {
+    ADMIN
+    PROFESIONAL
+    PACIENTE
+}
+
+class Profesional {
+    Long id
+    String matricula
+    String especialidad
+}
+
+class Paciente {
+    Long id
+    String dni
+    LocalDate fechaNacimiento
+}
+
+' ======================
+' RELACIONES
+' ======================
+
+Organizacion "1" -- "many" Centro : contiene >
+Centro "1" -- "many" Agenda : ofrece >
+Agenda "1" -- "1" Profesional : pertenece a >
+Agenda "1" -- "many" Turno : tiene >
+Turno "many" -- "1" Paciente : reservado por >
+Profesional "1" -- "1" Usuario : es un >
+Paciente "1" -- "1" Usuario : es un >
+
+@enduml
