@@ -34,7 +34,7 @@ public class Organizacion {
 
     private String telefono;
 
-    private String direccion;
+    private Direccion direccion;
 
     private Boolean activa;
 
