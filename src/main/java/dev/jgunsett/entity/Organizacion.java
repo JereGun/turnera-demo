@@ -34,6 +34,8 @@ public class Organizacion {
 
     private String telefono;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "direccion_id", referencedColumnName = "id")
     private Direccion direccion;
 
     private Boolean activa;

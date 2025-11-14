@@ -7,28 +7,17 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "direcciones")
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
 @Builder
-public class Direccion {
-
+public class Provincia {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String calle;
-
-    private String numero;
-
-    private String ciudad;
+    private String nombre;
 
     @ManyToOne
-    @JoinColumn(name = "provincia_id")
-    private Provincia provincia;
-
-    @ManyToOne
-    @JoinColumn(name = "pais_id")
     private Pais pais;
 }
