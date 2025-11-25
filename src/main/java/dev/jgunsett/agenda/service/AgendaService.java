@@ -9,8 +9,11 @@ import dev.jgunsett.agenda.mapper.AgendaMapper;
 import dev.jgunsett.agenda.repository.AgendaRepository;
 import dev.jgunsett.centro.entity.Centro;
 import dev.jgunsett.centro.repository.CentroRepository;
+import dev.jgunsett.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -46,4 +49,18 @@ public class AgendaService {
 
         return agendaMapper.toDTO(agenda);
     }
+
+    public List<AgendaResponseDTO> listarAgendas() {
+        return agendaRepository.findAll()
+                .stream()
+                .map(agendaMapper::toDTO)
+                .toList();
+    }
+
+    public AgendaResponseDTO obtenerAgenda(Long id) {
+        Agenda agenda = agendaRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("La agenda con ID: " + id + " no existe"));
+        return agendaMapper.toDTO(agenda);
+    }
+    
 }

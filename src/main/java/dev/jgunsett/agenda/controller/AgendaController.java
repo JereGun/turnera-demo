@@ -6,10 +6,9 @@ import dev.jgunsett.agenda.service.AgendaService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/agendas")
@@ -19,7 +18,12 @@ public class AgendaController {
     private final AgendaService agendaService;
 
     @PostMapping
-    public ResponseEntity<AgendaResponseDTO> crearAgenda(@RequestBody @Valid AgendaCreateDTO dto) {
+    public ResponseEntity<AgendaResponseDTO> crear(@RequestBody @Valid AgendaCreateDTO dto) {
         return ResponseEntity.ok(agendaService.crearAgenda(dto));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<AgendaResponseDTO>> listar() {
+        return ResponseEntity.ok(agendaService.listarAgendas());
     }
 }
